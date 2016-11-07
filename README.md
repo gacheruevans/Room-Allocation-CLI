@@ -1,1 +1,2 @@
+[![Build Status](https://travis-ci.org/andela-gacheruevans/cp1-amity.svg?branch=develop)](https://travis-ci.org/andela-gacheruevans/cp1-amity)
 A room allocation system for one of Andela’s facilities called Amity
