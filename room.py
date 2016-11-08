@@ -1,4 +1,4 @@
-class Room:
+class Room(object):
     def __init__(self):
         self.entries = {}
 
@@ -7,3 +7,6 @@ class Room:
 
     def lookup(self, name):
         return self.entries[name]
+
+    def is_office(self):
+        return True
