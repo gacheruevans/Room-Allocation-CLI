@@ -2,8 +2,8 @@ import unittest
 
 import mock
 
-from tests import Person
-from tests import Room
+from tests.person import Person
+from tests.room import Room
 
 
 class AmityTest(unittest.TestCase):
