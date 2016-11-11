@@ -62,6 +62,7 @@ class AmityTest(unittest.TestCase):
         mocked_open.assert_called_once_with("test_allocations.txt", 'wt')
         self.assertNotEqual(self.print_allocations_without_filename,
                             "", msg="Wrong data printed")
+
     def test_living_room_max_occupancy(self):
         self.get_room_max_occupancy = self.room.max_occupancy(4)
         self.get_room_wrong_occupancy = self.room.max_occupancy(5)
