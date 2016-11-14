@@ -8,7 +8,7 @@ class Room(object):
     def get_names(self):
         pass
 
-    def max_occupancy(self):
+    def occupancy(self):
         pass
 
     def get_room_name(self):

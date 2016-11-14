@@ -1,13 +1,12 @@
-import unittest
-
 import mock
+import unittest
 
 from tests.person import Person
 from tests.room import Room
 
 
 class AmityTest(unittest.TestCase):
-    """This is a test class for rooms and its methods."""
+    """This is a test class for rooms  and persons and their methods."""
 
     def setUp(self):
         self.room = Room()
@@ -28,11 +27,11 @@ class AmityTest(unittest.TestCase):
         self.assertEqual(self.get_name, 'Loice Anida', msg='Wrong Person name retrieved')
         self.assertEqual(self.get_name_with_wrong_id, 'Person Does not exist', msg='Person Exists')
 
-    @mock.patch.dict('room.Room.add', {
-        1: {'room_name': 'HOGWARTS', 'room_type': 'Office', 'Occupancy': '6'},
-        2: {'room_name': 'VALHALLA', 'room_type': 'Office', 'Occupancy': '6'},
-        3: {'room_name': 'LILAC', 'room_type': 'Office', 'Occupancy': '6'},
-        4: {'room_name': 'KRYPTON', 'room_type': 'Office', 'Occupancy': '6'}
+    @mock.patch('room.Room.add', {
+        1: {'room_name': 'HOGWARTS', 'room_type': 'Office'},
+        2: {'room_name': 'VALHALLA', 'room_type': 'Office'},
+        3: {'room_name': 'LILAC', 'room_type': 'Office'},
+        4: {'room_name': 'KRYPTON', 'room_type': 'Office'}
 
     })
     def test_look_up_office(self):
@@ -41,13 +40,13 @@ class AmityTest(unittest.TestCase):
         self.assertEqual(self.get_room_name, 'Hogwarts', msg='Wrong Room name retrieved')
         self.assertEqual(self.get_room_name_with_wrong_id, 'Room Does not exist', msg='Room Exists')
 
-    @mock.patch.dict('room.Room.get_room_max_occupancy', {
+    @mock.patch('room.Room.get_room_max_occupancy', {
         'HOGWARTS': {'is_office': True, 'Occupancy': [3]},
         'VALHALLA': {'is_office': True, 'Occupancy': [6]},
         'LILAC': {'is_office': True, 'Occupancy': [2]},
         'KRYPTON': {'is_office': True, 'Occupancy': [4]}
     })
-    @mock.patch.dict('person.Person.personel', {
+    @mock.patch('person.Person.personel', {
         1: {'name': 'EVANS JAMES', 'is_fellow': True, 'accomodation': 'Y'},
         2: {'name': 'GILBERT GATHARA', 'is_fellow': False, 'accomodation': 'N'}
     })
@@ -62,12 +61,6 @@ class AmityTest(unittest.TestCase):
         mocked_open.assert_called_once_with("test_allocations.txt", 'wt')
         self.assertNotEqual(self.print_allocations_without_filename,
                             "", msg="Wrong data printed")
-
-    def test_living_room_max_occupancy(self):
-        self.get_room_max_occupancy = self.room.max_occupancy(4)
-        self.get_room_wrong_occupancy = self.room.max_occupancy(5)
-        self.assertEqual(self.max_occupancy, 'Jade', msg='Wrong Room Occupancy retrieved')
-        self.assertEqual(self.get_room_wrong_occupancy, 'Room limit Exceeded', msg='Occupancy Exceeded')
 
     def test_empty_room(self):
         self.assertTrue(self.room.is_office())
