@@ -1,3 +1,12 @@
 .pyc
 .idea
 env
+.DS_Store
+app/__init__.pyc
+app/person/__init__.pyc
+app/person/personClass.pyc
+app/person/test_person.pyc
+app/rooms/__init__.pyc
+app/rooms/roomClass.pyc
+app/rooms/test_room.pyc
+test_amity.pyc
