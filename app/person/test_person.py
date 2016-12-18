@@ -81,7 +81,7 @@ class TestPerson(unittest.TestCase):
         'PHP':{'is_office': False, 'occupants':[1]}})
     @mock.patch.dict('personClass.people_data',{
         1:{'name':'EVANS GACHERU', 'is_fellow':True, 'accommodation':'Y'},
-        2:{'name':'KAREN KINOTI', 'is_fellow':False, 'accomodation':'N'}})
+        2:{'name':'KAREN KINOTI', 'is_fellow':False, 'accommodation':'N'}})
     def test_reallocation_room(self):
         #Test reallocation of rooms
 
@@ -93,7 +93,16 @@ class TestPerson(unittest.TestCase):
 
         self.reallocate_staff_living_space = self.test_person.reallocate_person({"<person_name>":"KINOTI","<new_room_name>":"GO"})
         self.assertEqual(self.reallocate_living_space, "STAFF CANNOT BE ALLOCATED LIVING SPACE",
-                         msg="Staff Not Allocated Living Space")
+                         msg="Staff Allocated Living Space")
 
         self.reallocate = self.test_person.reallocate_person({"<person_name>":"GACHERU","<new_room_name>":"GO"})
-        self.assertIn()
+        self.assertIn("Allocated GO", self.realloacte, msg="Person can not been reallocated")
+
+    @mock.patch.dict('personClass.people_data',{
+        8:{"name":"SHARON RUTO", "is_fellow":True, "accommodation":'Y'}})
+    def test_removal_of_person(self):
+        #Test removal of person
+        self.remove_person = self.test_person.remove_person({"<person_name>":"GACHERU"})
+        self.remove_non_existent_person= self.test_person.remove_non_existent_person({"<person_name>":"KUNTAKINTE"})
+        self.assertNotEqual(None, self.remove_person, msg="Person has not been removed")
+        self.assertEqual("KUNTAKINTE not found", self.remove_non_existent_person, msg="Person found")
