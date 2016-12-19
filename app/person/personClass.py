@@ -1,5 +1,7 @@
 import random
-from test_amity import rooms
+
+from app.amity.test_amity import rooms
+
 people_data = {}
 
 class Person(object):
