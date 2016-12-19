@@ -63,3 +63,7 @@ class TestRoom(unittest.TestCase):
         self.assertNotEquals(self.printing_existent_room, "", msg = "Room Does Not Exist")
         self.printing_empty_room = self.test_room.print_room({"<room_name>":"GO"})
         self.assertIn("No Occupants", self.printing_empty_room, msg = "Room has no occupants")
+
+if __name__ == '__main__':
+    unittest.main()
+    
