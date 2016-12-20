@@ -30,6 +30,6 @@ class Amity(object):
 
             rooms.update({room.upper():{"occupants": [], "is_office": is_office}})
             message = "You have the following rooms\n"
-            message += "\n".join(rooms.keys)
+            message += "\n".join(rooms.keys())
 
             return message
