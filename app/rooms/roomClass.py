@@ -5,7 +5,7 @@ class Room(object):
     """Holds all the functions that display rooms data."""
 
     def get_names(self, identifier):
-        """get's the name of of the person from people data."""
+        """Get's the name of of the person from people data."""
 
         person = people_data.get(identifier, None)
         if person == None:
@@ -33,7 +33,7 @@ class Room(object):
         return message
 
     def print_allocations(self, args):
-        """ print rooms and occupants"""
+        """Print rooms and occupants"""
 
         data = ""
         for room in rooms:

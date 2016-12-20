@@ -36,7 +36,7 @@ class TestRoom(unittest.TestCase):
         mocked_open.assert_called_once_with("test_allocations.txt", "wt")
         self.assertNotEqual(self.print_allocations_without_filename, "",msg = "Wrong data printed ")
 
-    @mock.patch.dict("amity.amityClass.rooms", {
+    @mock.patch.dict("app.amity.amityClass.rooms", {
         "KRYPTON":{"is_office" : True, "occupants" : []}})
     @mock.patch.dict("person.personClass.people_data", {
         1:{"name":"EVANS GACHERU","is_fellow": True, "accommodation" : "Y"}})
@@ -51,7 +51,7 @@ class TestRoom(unittest.TestCase):
         mocked_open.assert_called_once_with("test_unallocated.txt", "wt")
 
     @mock.patch.dict("amity.amityClass.rooms",{
-        "PYTHON":{"is_office":False , "occupants":[2]},
+        "PYTHON":{"is_office":False, "occupants":[2]},
         "GO":{"is_office":False, "occupants":[]}})
     @mock.patch.dict("person.personClass.people_date", {
         1:{"name": "EVANS GACHERU", "is_fellow":True, "accommodation":"Y"}})
@@ -66,4 +66,4 @@ class TestRoom(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    
+
