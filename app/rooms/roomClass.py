@@ -8,7 +8,7 @@ class Room(object):
         """Get's the name of of the person from people data."""
 
         person = people_data.get(identifier, None)
-        if person == None:
+        if person is None:
             return "Person Does Not Exist."
         return person["name"]
 
@@ -17,7 +17,7 @@ class Room(object):
         room_name = args["<room_name>"].upper()
 
         room = rooms.get(room_name, None)
-        if room == None:
+        if room is None:
             message=  "{} Room Does Not Exist".format(room_name)
             return message
         message = "{} \n".format(room_name.upper())
