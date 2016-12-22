@@ -1,5 +1,5 @@
 import unittest
-from officeClass import Office
+from app.rooms.officeClass import Office
 
 class TestOffice(unittest.TestCase):
     """This tests Office initialization """

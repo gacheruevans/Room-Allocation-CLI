@@ -1,5 +1,5 @@
 import unittest
-from fellowClass import Fellow
+from app.person.fellowClass import Fellow
 
 class TestFellow(unittest.TestCase):
     """ This is a fellow initialization"""

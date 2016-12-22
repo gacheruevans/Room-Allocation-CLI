@@ -1,5 +1,5 @@
 import unittest
-from livingspaceClass import LivingSpace
+from app.rooms.livingspaceClass import LivingSpace
 
 class TestLivingSpace(unittest.TestCase):
     """This tests living space initialization"""

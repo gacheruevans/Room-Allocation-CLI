@@ -1,5 +1,5 @@
 import unittest
-from staffClass import Staff
+from app.person.staffClass import Staff
 
 class TestStaff(unittest.TestCase):
     """ This is a staff initialization """

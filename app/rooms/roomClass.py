@@ -1,5 +1,6 @@
-from app.person.personClass import people_data
+from app.person.personClass import Person
 from app.amity.amityClass import rooms
+
 
 class Room(object):
     """Holds all the functions that display rooms data."""
@@ -7,7 +8,7 @@ class Room(object):
     def get_names(self, identifier):
         """Get's the name of of the person from people data."""
 
-        person = people_data.get(identifier, None)
+        person = Person.people_data.get(identifier, None)
         if person is None:
             return "Person Does Not Exist."
         return person["name"]
@@ -18,16 +19,16 @@ class Room(object):
 
         room = rooms.get(room_name, None)
         if room is None:
-            message=  "{} Room Does Not Exist".format(room_name)
+            message = "{} Room Does Not Exist".format(room_name)
             return message
         message = "{} \n".format(room_name.upper())
         message += "-" * 40
-        message +="\n"
+        message += "\n"
 
         if not room["occupants"]:
             message += "No Occupants"
-            return  message
-        occupants = list(map(self.get_name, room["occupants"]))
+            return message
+        occupants = list(map(self.get_names, room["occupants"]))
         message += "\n".join(occupants)
 
         return message
@@ -37,7 +38,7 @@ class Room(object):
 
         data = ""
         for room in rooms:
-            room_info = rooms.get(room,None)
+            room_info = rooms.get(room, None)
             room_type = "Living Space"
 
             if room_info["is_office"]:
@@ -49,12 +50,13 @@ class Room(object):
             if len(rooms[room]["occupants"]) is 0:
                 data += "No Occupants"
             occupants = map(self.get_names, rooms[room]["occupants"])
-            data +=  "\n".join(occupants)
+            data += "\n".join(occupants)
 
         if args["-o"]:
             with open(args["<filename>"], "wt") as output_file:
                 output_file.write(data)
-                print ("Allocations has been saved to {}".format(args["filename"]))
+                print ("Allocations has been saved to {}".format(
+                    args["<filename>"]))
         return data
 
     def print_unallocated(self, args):
@@ -72,18 +74,19 @@ class Room(object):
             if not room_info["is_office"]:
                 living_space_allocations += room_info["occupants"]
 
-        unllocated_offices = list(set(people_data.keys()) - set(office_allocations))
+        unllocated_offices = list(
+            set(Person.people_data.keys()) - set(office_allocations))
         people_without_offices = list(map(self.get_names, unllocated_offices))
 
         data += "Those unallocated Offices: \n"
         if len(people_without_offices):
-            data +="\n".join(people_without_offices)
+            data += "\n".join(people_without_offices)
         else:
             data += "NONE"
 
         data += "\n\nThose unallocated living spaces:\n"
 
-        for person_id, person_info in people_data.items():
+        for person_id, person_info in Person.people_data.items():
             if person_info["is_fellow"] and person_info["accommodation"] == "Y":
                 if person_id not in living_space_allocations:
                     people_without_living_spaces.append(person_info["name"])
@@ -96,9 +99,6 @@ class Room(object):
         if args["-o"]:
             with open(args["<filename>"], "wt") as output_file:
                 output_file.write(data)
-                print ("Unallocated people have been saved to {}".format(args["<filename>"]))
+                print ("Unallocated people have been saved to {}".format(
+                    args["<filename>"]))
         return data
-
-
-
-

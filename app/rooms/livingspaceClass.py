@@ -1,4 +1,4 @@
-from roomClass import Room
+from app.rooms.roomClass import Room
 
 class LivingSpace(Room):
     """This is the living space class that inherits from thr Room class"""
