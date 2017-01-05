@@ -5,7 +5,7 @@ interactive command application.
 Usage:
     amity create_room <room_name>...
     amity add_person <first_name> <last_name> (Fellow|Staff) [<wants_accomodation>]
-    amity reallocate_person <person_name> <new_room_name>
+    amity reallocate_person <person_name> <new_room>
     amity remove_person <person_identifier>
     amity load_people <filename>
     amity print_allocations [-o <filename>]
@@ -25,10 +25,8 @@ import sys
 import cmd
 from docopt import docopt, DocoptExit
 from app.amity.amityClass import Amity
-from app.person.personClass import Person
-from app.rooms.roomClass import Room
 from app.database import amity_db
-from termcolor import cprint, colored
+from termcolor import cprint
 from pyfiglet import figlet_format
 
 
@@ -65,8 +63,9 @@ def docopt_cmd(func):
 
 
 class MyInteractive (cmd.Cmd):
-
-    cprint(figlet_format('AMITY', font='nancyj-underlined'), 'yellow', attrs=['bold'])
+    cprint("\n")
+    cprint(figlet_format("AMITY".center(15), font="nancyj-underlined"),
+           "yellow", attrs=["bold"])
 
     def introduction():
         cprint("\n")
@@ -77,7 +76,7 @@ class MyInteractive (cmd.Cmd):
             "2. add_person <first_name> <last_name> (Fellow|Staff)"
             "[<wants_accomodation>]".center(40), 'green')
         cprint(
-            "3. reallocate_person <person_name> <new_room_name>".center(
+            "3. reallocate_person <person_name> <new_room>".center(
                 40), 'green')
         cprint(
             "4. remove_person <person_name>".center(30), 'green')
@@ -109,61 +108,55 @@ class MyInteractive (cmd.Cmd):
     def do_add_person(self, args):
         """Usage:
         add_person <first_name> <last_name> (Fellow|Staff) [<wants_accommodation>]"""
-        print(Person().add_person(args))
+        print(Amity().add_person(args))
 
     @docopt_cmd
     def do_remove_person(self, args):
         """Usage:
         remove_person <person_name>"""
-        print(Person().remove_person(args))
+        print(Amity().remove_person(args))
 
     @docopt_cmd
     def do_reallocate_person(self, args):
         """Usage:
-        reallocate_person <person_name> <new_room_name>"""
+        reallocate_person <person_name> <new_room>"""
 
-        print(Person().allocate_person_room(args))
+        print(Amity().reallocate_person(args))
 
     @docopt_cmd
     def do_load_people(self, args):
         """Usage:
         load_people <filename>
-                Sample Input Format:
-                OLUWAFEMI SULE FELLOW Y
-                DOMINIC WALTERS STAFF
-                SIMON PATTERSON FELLOW Y
-                MARI LAWRENCE FELLOW Y
-                LEIGH RILEY STAFF
-                TANA LOPEZ FELLOW Y
-                KELLY McGUIRE STAFF N
         """
-        print(Person().load_people(args))
+        print(Amity().load_people(args))
 
     @docopt_cmd
     def do_print_allocations(self, args):
         """Usage:
         print_allocations [-o <filename>]
         """
-        print(Room().print_allocations(args))
+        print(Amity().print_allocations(args))
 
     @docopt_cmd
     def do_print_unallocated(self, args):
         """Usage:
-        print_unallocated [-o <filename>]"""
-        print(Room().print_unallocated(args))
+        print_unallocated [-o <filename>]
+        """
+        print(Amity().print_unallocated(args))
 
     @docopt_cmd
     def do_print_room(self, args):
         """Usage:
         print_room <room_name>
         """
-        print(Room().print_room(args))
+        print(Amity().print_room(args))
 
     @docopt_cmd
     def do_save_state(self, args):
         """Usage:
-        save_state [--db=sqlite_database]"""
-        print(amity_db.save_state(args))
+        save_state [--db=sqlite_database]
+        """
+        print(amity_db.save_state({"--db": 'amity.db'}))
 
     @docopt_cmd
     def do_load_state(self, args):

@@ -1,5 +1,5 @@
 import unittest
-import mock
+import unittest.mock as mock
 from app.database.database import Database
 
 
@@ -23,38 +23,6 @@ class testDatabase(unittest.TestCase):
         self.test_sample_database = mocked_connection(
             "test_database.db")
         mocked_connection.assert_called_once_with("test_database.db")
-
-    @mock.patch.dict('app.amity.amityClass.rooms', {
-        'KRYPTON': {'is_office': True, 'occupants': [2]},
-        'VALHALLA': {'is_office': True, 'occupants': [1]},
-        'PYTHON': {'is_office': False, 'occupants': [1]}})
-    @mock.patch.dict('app.person.personClass.Person.people_data', {
-        1: {'name': ' EVANS GACHERU', 'is_fellow': True, 'accomodation': 'Y'},
-        2: {'name': 'KAREN KINOTI', 'is_fellow': False, 'accomodation': 'N'}})
-    @mock.patch('app.database.Database.save_state')
-    @mock.patch('app.database.Database.connect_to_db')
-    def test_database_save_state_method(self, mocked_connection, mocked_save_state):
-        # Test methods for saving to the database
-        mocked_connection("test_database.db")
-        self.test_save_people = self.test_database.save_people(
-            mocked_connection)
-        self.assertNotEqual(self.test_save_people,
-                            "Failed", msg="People not added to database")
-
-        self.test_save_rooms = self.test_database.save_rooms(
-            mocked_connection)
-        self.assertNotEqual(self.test_save_rooms,
-                            "Failed", msg="Rooms not added to database")
-
-        self.test_save_allocations = self.test_database.save_allocations(
-            mocked_connection)
-        self.assertNotEqual(self.test_save_allocations,
-                            "Failed", msg="Allocations not added to database")
-
-        self.test_save_state_with_dbname = mocked_save_state(
-            "test_database.db")
-        mocked_connection.assert_called_once_with("test_database.db")
-        mocked_save_state.assert_called_once_with("test_database.db")
 
     @mock.patch('app.database.Database.load_state')
     @mock.patch('app.database.Database.connect_to_db')

@@ -39,7 +39,7 @@ class People(Base):
     __tablename__ = 'people'
     person_id = Column(Integer, primary_key=True)
     name = Column(String)
-    wants_accomodation = Column(String)
+    wants_accommodation = Column(String)
     is_fellow = Column(Boolean)
 
 

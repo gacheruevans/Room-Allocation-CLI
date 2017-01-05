@@ -73,7 +73,7 @@ class TestPerson(unittest.TestCase):
                          }
 
         self.test_adding_fellow = self.person.add_person(sample_fellow)
-        self.assertIn("MIKE KAMAU has not been allocated", self.test_adding_fellow,
+        self.assertIn("MIKE KAMAU has been added and has automaticallybeen allocated", self.test_adding_fellow,
                       msg="Person allocated living space")
 
     @mock.patch.dict('app.amity.amityClass.rooms', {
