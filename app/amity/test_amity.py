@@ -1,8 +1,6 @@
 import unittest
 import unittest.mock as mock
 from app.amity.amityClass import Amity, rooms
-from app.person.personClass import Person
-from app.rooms.roomClass import Room
 
 
 class TestAmity(unittest.TestCase):
@@ -10,8 +8,6 @@ class TestAmity(unittest.TestCase):
 
     def setUp(self):
         self.test_amity = Amity()
-        self.person = Person()
-        self.test_room = Room()
         self.test_create_single_room = self.test_amity.create_room(
             {"<room_name>": ["OCULUS"]}, "O")
 
@@ -55,14 +51,14 @@ class TestAmity(unittest.TestCase):
             'Staff': False,
             '<wants_accommodation>': 'Y'
         }
-        add_person = self.person.add_person(new_person)
-        add_person_twice = self.person.add_person(new_person)
+        add_person = self.test_amity.add_person(new_person)
+        add_person_twice = self.test_amity.add_person(new_person)
         self.assertIn('EVANS GACHERU', add_person, msg='Person not added.')
         self.assertIn('Already Exists', add_person_twice,
                       msg='Person already Exists.')
 
-    @mock.patch('app.person.personClass.open')
-    @mock.patch('app.person.personClass.Person.add_person')
+    @mock.patch('app.amity.amityClass.open')
+    @mock.patch('app.amity.amityClass.Amity.add_person')
     def test_load_people_from_a_text_file(
             self, mocked_add_person, mocked_open):
 
