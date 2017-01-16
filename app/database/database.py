@@ -3,6 +3,7 @@ from app.database.models import *
 from app.amity import my_amity
 from app.amity.amityClass import rooms
 from app.person.personClass import Person
+from app.rooms import my_rooms
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -11,7 +12,7 @@ class Database(object):
     """
     This is the Database class that has all methods of creating,
     connecting and reading from the database.
-    
+
     By using the save_people, save_rooms and save_allocations methods,
         it saves the data from the rooms and people_data dictionary to the
         database.
@@ -49,8 +50,6 @@ class Database(object):
         if args["--db"]:
             self.db_name = args["--db"]
 
-        # Check if the database already exists, if it does delete existing.
-
         if os.path.exists(self.db_name):
             os.remove(self.db_name)
 
@@ -79,14 +78,14 @@ class Database(object):
             for key, values in Person.people_data.items():
                 person_id = key
                 name = values["name"]
-                wants_accomodation = values["accomodation"]
+                wants_accommodation = values["accommodation"]
                 is_fellow = values["is_fellow"]
 
                 people = People(person_id=person_id, name=name,
-                                wants_accomodation=wants_accomodation,
+                                wants_accommodation=wants_accommodation,
                                 is_fellow=is_fellow)
                 storage_session.add(people)
-                
+
             return people
         except Exception:
             return "Failed"
@@ -131,7 +130,6 @@ class Database(object):
         """
         db_name = args["<sqlite_database>"]
         if os.path.exists(db_name):
-
             sess = self.connect_to_db(db_name)
 
             try:
@@ -163,7 +161,7 @@ class Database(object):
             Person.people_data.update({
                 person.person_id:
                 {'name': str(person.name),
-                 'accomodation': str(person.wants_accomodation),
+                 'accommodation': str(person.wants_accommodation),
                  'is_fellow': bool(person.is_fellow)}
             })
 
@@ -196,7 +194,7 @@ class Database(object):
                 message += "{} Not Created".format(str(allocation.room_name))
                 return message
             room['occupants'].append(allocation.occupant_id)
-            name = my_room.get_names(allocation.occupant_id)
+            name = my_rooms.get_names(allocation.occupant_id)
 
             message += "{} successfully added to room {}\n".format(
                 name.upper(), str(allocation.room_name))

@@ -4,7 +4,7 @@ from app.rooms.roomClass import Room
 
 
 class TestRoom(unittest.TestCase):
-    """ """
+    """ Holds all tests for rooms."""
 
     def setUp(self):
         self.test_room = Room()

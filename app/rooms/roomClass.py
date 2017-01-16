@@ -6,7 +6,7 @@ class Room(object):
     """Holds all the functions that display rooms data."""
 
     def get_names(self, identifier):
-        """Get's the name of of the person from people data."""
+        """Get's the occupants of of the person from people data."""
 
         person = Person.people_data.get(identifier, None)
         if person is None:
@@ -22,7 +22,7 @@ class Room(object):
             message = "{} Room Does Not Exist".format(room_name)
             return message
         message = "{} \n".format(room_name.upper())
-        message += "-" * 40
+        message += "-" * 50
         message += "\n"
 
         if not room["occupants"]:
@@ -34,7 +34,7 @@ class Room(object):
         return message
 
     def print_allocations(self, args):
-        """Print rooms and occupants"""
+        """Print rooms and nimber of occupants"""
 
         data = ""
         for room in rooms:
@@ -74,14 +74,16 @@ class Room(object):
             if not room_info["is_office"]:
                 living_space_allocations += room_info["occupants"]
 
-        unllocated_offices = list(
+        unallocated_offices = list(
             set(Person.people_data.keys()) - set(office_allocations))
-        people_without_offices = list(map(self.get_names, unllocated_offices))
+        people_without_offices = list(map(self.get_names, unallocated_offices))
 
         data += "Those unallocated Offices: \n"
         if len(people_without_offices):
             data += "\n".join(people_without_offices)
         else:
+            data += "-" * 50
+            data += "\n"
             data += "NONE"
 
         data += "\n\nThose unallocated living spaces:\n"
@@ -94,6 +96,8 @@ class Room(object):
         if len(people_without_living_spaces):
             data += "\n".join(people_without_living_spaces)
         else:
+            data += "-" * 50
+            data += "\n"
             data += "NONE"
 
         if args["-o"]:

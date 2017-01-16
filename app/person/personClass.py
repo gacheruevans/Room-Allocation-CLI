@@ -1,19 +1,19 @@
-import random
 from app.amity.amityClass import rooms
-
+import random
 
 class Person(object):
     """
     This is the Person class that has all methods of adding a person,
     loading people from a text file and allocating them rooms.
     sample people_data dictionary:
-        people_data = {
-            1:{'name': 'EVANS GACHERU', 'is_fellow': True, 'accomodation': 'Y'},
-            2:{'name': 'EVANS MUSOMI', 'is_fellow': False, 'accomodation': 'N'},
-        }
+    people_data = {
+        1:{'name': 'EVANS GACHERU', 'is_fellow': True, 'accomodation': 'Y'},
+        2:{'name': 'EVANS MUSOMI', 'is_fellow': False, 'accomodation': 'N'},
+    }
     """
 
     people_data = {}
+
 
     def __init__(self):
         self.person_name = None
@@ -24,31 +24,51 @@ class Person(object):
         allocates the person to a random room.
         """
 
+        # converts new person details(first name, last name)to capital letters
         person_name = "{} {}".format(args["<first_name>"], args["<last_name>"])
         person_name = person_name.upper()
+        is_fellow = args["Fellow"]
         wants_accommodation = 'N'
-        is_fellow = args['Fellow']
+        if args["<wants_accommodation>"]:
+            wants_accommodation = args["<wants_accommodation>"].upper()
 
+        # This ensures last record isn't over written by adding new person
+        # record after last existing id.
         self.person_identifier = len(Person.people_data) + 1
 
-        if args["<wants_accommodation>"]:
-            wants_accommodation = args["<wants_accommodation>"]
+        if args["<wants_accommodation>"] == "Y":
 
-        for person in Person.people_data:
-            if Person.people_data[person]['name'] == person_name:
-                message = "{} Already Exists\n".format(person_name)
-                return message
+            for person in Person.people_data:
+                if Person.people_data[person]['name'] == person_name:
+                    message = "{} Already Exists\n".format(person_name)
+                    return message
 
-        Person.people_data.update({
-            self.person_identifier: {
-                'name': person_name,
-                'accommodation': wants_accommodation,
-                'is_fellow': is_fellow}
-        })
+            Person.people_data.update({
+                self.person_identifier: {
+                    'name': person_name,
+                    'accommodation': wants_accommodation,
+                    'is_fellow': is_fellow}
+            })
 
-        message = self.allocate_person_room(self.person_identifier)
+            message = self.allocate_person_room(self.person_identifier)
 
-        return message
+            return message
+        else:
+            for person in Person.people_data:
+                if Person.people_data[person]['name'] == person_name:
+                    message = "{} Already Exists\n".format(person_name)
+                    return message
+
+            Person.people_data.update({
+                self.person_identifier: {
+                    'name': person_name,
+                    'accommodation': wants_accommodation,
+                    'is_fellow': is_fellow}
+            })
+
+            message = self.allocate_person_room(self.person_identifier)
+
+            return message
 
     def allocate_person_room(self, identifier):
         """Allocates a person their respective office and \
@@ -63,22 +83,40 @@ class Person(object):
         person = Person.people_data.get(identifier, None)
 
         for room in rooms:
-            if rooms[room]["is_office"] and len(rooms[room]["occupants"]) < 6:
-                available_offices.append(room)
-            if not rooms[room]["is_office"] and len(rooms[room]["occupants"]) < 4:
-                available_living_spaces.append(room)
+            if person["accommodation"] == "Y" and person["is_fellow"]:
+                if rooms[room]["is_office"] and len(
+                        rooms[room]["occupants"]) < 6:
+                    available_offices.append(room)
+
+                if not rooms[room]["is_office"] and len(
+                        rooms[room]["occupants"]) < 4:
+                    available_living_spaces.append(room)
+
+            if person["accommodation"] == "N" and person["is_fellow"]:
+                if rooms[room]["is_office"] and len(
+                        rooms[room]["occupants"]) < 6:
+                    available_offices.append(room)
+
+            if not person["is_fellow"] == "Y" and person["accommodation"]:
+                if rooms[room]["is_office"] and len(
+                        rooms[room]["occupants"]) < 6:
+                    available_offices.append(room)
 
         if len(available_offices) > 0:
             allocated_offices = random.choice(available_offices)
             rooms[allocated_offices]["occupants"].append(identifier)
 
-        if person["accommodation"] == "Y":
-            if person["is_fellow"] and len(available_living_spaces) > 0:
+        if person["accommodation"] == "Y" and person["is_fellow"]:
+            if len(available_living_spaces) > 0:
                 allocated_living_space = random.choice(available_living_spaces)
                 rooms[allocated_living_space]["occupants"].append(identifier)
 
-        message = "{} has not been allocated {} office and {} living space\n".format(
-            Person.people_data[identifier]["name"], allocated_offices, allocated_living_space)
+        message = "{} has been added and has automatically" \
+            "been allocated to {} office and {}" \
+            "living space respectively.\n".format(
+                Person.people_data[identifier]["name"],
+                allocated_offices,
+                allocated_living_space)
         return message
 
     def reallocate_person(self, args):
@@ -127,9 +165,10 @@ class Person(object):
                         rooms[current_room]["occupants"].remove(person_id)
                         # Returns a copy of the string in which all case-based
                         # characters have been uppercased
-                        return "{} has been deleted".format(
-                            args["<person_name>"].upper())
-                        Person.people_data.pop(person_id)
+                Person.people_data.pop(person_id)
+                return "{} has been deleted".format(
+                    args["<person_name>"].upper())
+
         return "{} not found".format(args["<person_name>"].upper())
 
     def load_people(self, args):
@@ -149,7 +188,7 @@ class Person(object):
                         is_fellow = False
                         is_staff = True
 
-                    if "YES" in person:
+                    if "Y" in person:
                         wants_accommodation = "Y"
 
                     arg_dict = ({

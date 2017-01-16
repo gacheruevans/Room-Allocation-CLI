@@ -5,7 +5,7 @@ class Amity(object):
     """ 
     class contains methods for getting room type, \
     creating room type and listing rooms to be added.
-    a"""
+    """
 
     def get_room_type(self, room_type=None):
         """ Gets room type from user after the create room command"""

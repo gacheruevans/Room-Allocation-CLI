@@ -24,14 +24,14 @@ class TestAmity(unittest.TestCase):
         self.test_amity.create_room({"<room_name>": ["GO", "PHP"]}, "L")
 
         self.assertIn("OCULUS", self.test_create_single_room,
-                      msg="Room Not Created")
+                      msg= "Room Not Created")
         # All the key/value pairs in dictionary exist in rooms
         self.assertDictContainsSubset({
             "GO": {"occupants": [], "is_office": False},
             "KRYPTON": {"occupants": [], "is_office": True},
             "PHP": {"occupants": [], "is_office": False},
             "HOGWARTS": {"occupants": [], "is_office": True}},
-            rooms, msg="Multiple Rooms were not created")
+            rooms, msg= " Multiple Rooms were not created")
 
     def test_adding_rooms_twice(self):
         # Test if room is added twice
