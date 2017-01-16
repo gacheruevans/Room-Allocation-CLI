@@ -181,7 +181,7 @@ class TestAmity(unittest.TestCase):
     @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"},
         2: {"name": "Evans MUSOMI", "is_fellow": False, "accommodation": "N"}})
-    @mock.patch("app.rooms.roomClass.open")
+    @mock.patch("app.amity.amityClass.open")
     def test_print_allocations(self, mocked_open):
         # Test Print allocations function
         self.print_allocations_without_filename = self.test_amity.print_allocations({
@@ -196,7 +196,7 @@ class TestAmity(unittest.TestCase):
         "KRYPTON": {"is_office": True, "occupants": []}})
     @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"}})
-    @mock.patch("app.rooms.roomClass.open")
+    @mock.patch("app.amity.amityClass.open")
     def test_print_unallocated(self, mocked_open):
         # Test print unallocated
         self.print_unallocated_without_filename = self.test_amity.print_unallocated({
