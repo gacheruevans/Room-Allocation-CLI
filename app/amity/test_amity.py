@@ -1,6 +1,8 @@
 import unittest
 import unittest.mock as mock
 from app.amity.amityClass import Amity, rooms
+from app.person.personClass import Person
+from app.rooms.roomClass import Room
 
 
 class TestAmity(unittest.TestCase):
@@ -87,7 +89,7 @@ class TestAmity(unittest.TestCase):
                         "Staff": True,
                         "<wants_accommodation>": None
                         }
-        self.test_allocate_office = self.person.add_person(sample_staff)
+        self.test_allocate_office = self.test_amity.add_person(sample_staff)
         self.assertRaises(Exception, self.test_allocate_office,
                           msg="Person not allocated office")
 
@@ -104,7 +106,7 @@ class TestAmity(unittest.TestCase):
                          "<wants_accommodation>": 'Y'
                          }
 
-        self.test_adding_fellow = self.person.add_person(sample_fellow)
+        self.test_adding_fellow = self.test_amity.add_person(sample_fellow)
         self.assertIn("MIKE KAMAU has been added and has automaticallybeen allocated", self.test_adding_fellow,
                       msg="Person allocated living space")
 
@@ -123,23 +125,23 @@ class TestAmity(unittest.TestCase):
     def test_reallocation_room(self):
         # Test reallocation of rooms
 
-        self.reallocate = self.person.reallocate_person(
+        self.reallocate = self.test_amity.reallocate_person(
             {"<person_name>": "GACHERU", "<new_room>": "OCULUS"})
         self.assertIn("reallocated OCULUS", self.reallocate,
                       msg="Person Successfully allocated")
 
-        self.reallocate_to_full_room = self.person.reallocate_person(
+        self.reallocate_to_full_room = self.test_amity.reallocate_person(
             {"<person_name>": "STEVEN", "<new_room>": "GO"})
         self.assertIn("full", self.reallocate_to_full_room,
                       msg="Person can not be reallocated")
 
-        self.reallocate_staff_living_space = self.person.reallocate_person(
+        self.reallocate_staff_living_space = self.test_amity.reallocate_person(
             {"<person_name>": "KINOTI", "<new_room>": "PYTHON"})
         self.assertEqual(self.reallocate_staff_living_space,
                          "STAFF CANNOT BE ALLOCATED LIVING SPACE",
                          msg="Staff Allocated Living Space")
 
-        self.reallocate_living_space = self.person.reallocate_person(
+        self.reallocate_living_space = self.test_amity.reallocate_person(
             {"<person_name>": "GACHERU", "<new_room>": "PYTHON"})
         self.assertIn("reallocated PYTHON", self.reallocate_living_space,
                       msg="Person can not been reallocated")
@@ -148,9 +150,9 @@ class TestAmity(unittest.TestCase):
         8: {"name": "SHARON RUTO", "is_fellow": True, "accommodation": 'Y'}})
     def test_removal_of_person(self):
         # Test removal of person
-        self.remove_person = self.person.remove_person(
+        self.remove_person = self.test_amity.remove_person(
             {"<person_name>": "GACHERU"})
-        self.remove_non_existent_person = self.person.remove_person(
+        self.remove_non_existent_person = self.test_amity.remove_person(
             {"<person_name>": "KUNTAKINTE"})
         self.assertNotEqual(None, self.remove_person,
                             msg="Person has not been removed")
