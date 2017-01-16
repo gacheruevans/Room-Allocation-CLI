@@ -64,7 +64,7 @@ class TestAmity(unittest.TestCase):
     def test_load_people_from_a_text_file(
             self, mocked_add_person, mocked_open):
 
-        self.person.load_people({"<filename>": "non_existent.txt"})
+        self.test_amity.load_people({"<filename>": "non_existent.txt"})
         mocked_open.assert_called_once_with("non_existent.txt", 'r')
 
         sample_txt_data = "STEVEN NJOROGE FELLOW Y\n ALEX KIURA FELLOW Y\n DOMINIC WALTERS STAFF\n MAUREEN MAINGI STAFF\n"
