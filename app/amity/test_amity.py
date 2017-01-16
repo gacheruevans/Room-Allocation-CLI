@@ -117,7 +117,7 @@ class TestAmity(unittest.TestCase):
         'OCULUS': {'is_office': True, 'occupants': []},
         'GO': {'is_office': False, 'occupants': [1, 3, 4, 5]},
         'PYTHON': {'is_office': False, 'occupants': [6]}})
-    @mock.patch.dict('app.person.personClass.Person.people_data', {
+    @mock.patch.dict('app.amity.amityClass.Amity.people_data', {
         1: {'name': 'EVANS GACHERU', 'is_fellow': True, 'accommodation': 'Y'},
         2: {'name': 'KAREN KINOTI', 'is_fellow': False, 'accommodation': 'N'},
         3: {'name': 'VICTOR KIRONDE', 'is_fellow': True, 'accommodation': 'Y'},
@@ -148,7 +148,7 @@ class TestAmity(unittest.TestCase):
         self.assertIn("reallocated PYTHON", self.reallocate_living_space,
                       msg="Person can not been reallocated")
 
-    @mock.patch.dict('app.person.personClass.Person.people_data', {
+    @mock.patch.dict('app.amity.amityClass.Amity.people_data', {
         8: {"name": "SHARON RUTO", "is_fellow": True, "accommodation": 'Y'}})
     def test_removal_of_person(self):
         # Test removal of person
@@ -163,7 +163,7 @@ class TestAmity(unittest.TestCase):
 
     # Start of room tests
 
-    @mock.patch.dict("app.person.personClass.Person.people_data", {
+    @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"}})
     def test_getting_persons_name_from_people_data(self):
         # Test's whether the record being sought for is in people data
@@ -180,7 +180,7 @@ class TestAmity(unittest.TestCase):
         "OCULUS": {"is_office": True, "occupants": [4]},
         "PYTHON": {"is_office": False, "occupants": [2]}
     })
-    @mock.patch.dict("app.person.personClass.Person.people_data", {
+    @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"},
         2: {"name": "Evans MUSOMI", "is_fellow": False, "accommodation": "N"}})
     @mock.patch("app.rooms.roomClass.open")
@@ -196,7 +196,7 @@ class TestAmity(unittest.TestCase):
 
     @mock.patch.dict("app.amity.amityClass.rooms", {
         "KRYPTON": {"is_office": True, "occupants": []}})
-    @mock.patch.dict("app.person.personClass.Person.people_data", {
+    @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"}})
     @mock.patch("app.rooms.roomClass.open")
     def test_print_unallocated(self, mocked_open):
@@ -212,7 +212,7 @@ class TestAmity(unittest.TestCase):
     @mock.patch.dict("app.amity.amityClass.rooms", {
         "PYTHON": {"is_office": False, "occupants": [2]},
         "GO": {"is_office": False, "occupants": []}})
-    @mock.patch.dict("app.person.personClass.Person.people_data", {
+    @mock.patch.dict("app.amity.amityClass.Amity.people_data", {
         1: {"name": "EVANS GACHERU", "is_fellow": True, "accommodation": "Y"}})
     def test_print_room(self):
         # Test print rooms
