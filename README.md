@@ -1,8 +1,44 @@
 [![Build Status](https://travis-ci.org/andela-gacheruevans/cp1-amity.svg?branch=develop)](https://travis-ci.org/andela-gacheruevans/cp1-amity)
 [![Code Health](https://landscape.io/github/andela-gacheruevans/cp1-amity/develop/landscape.svg?style=flat)](https://landscape.io/github/andela-gacheruevans/cp1-amity/develop)
-#AMITY
 
-####A room allocation system for one of Andela’s facilities. The following are the tasks needed to be accomplished;
+# AMITY
+
+##Installation
+
+1. Create a working directory.
+
+    	mkdir Projects
+    
+2. Clone this repository.
+
+    * via HTTPS
+
+    	- https://github.com/andela-gacheruevans/cp1-amity.git
+
+    * via SSH
+
+    	- git@github.com:andela-gacheruevans/cp1-amity.git
+
+3. Navigate to project directory.
+
+		cd cp1-amity  
+    
+4. Create a virtual environment.
+    
+    	mkvirtualenv env workon env
+
+when selecting the virtual environment, you can pick any name that suits you for now you will be using **env**
+    
+5. Set up the environment requirements.
+    
+    	pip install -r requirements.txt
+
+
+6. Initialize, migrate and update the database.
+	
+		python run.py -i
+
+## A room allocation system for one of Andela’s facilities. The following are the tasks needed to be accomplished;
     
     1. create_room <room_name>... 
         - Creates rooms in Amity. Using this command I should be able to create as many rooms as possible by 
