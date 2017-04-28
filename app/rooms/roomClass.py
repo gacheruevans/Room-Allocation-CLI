@@ -1,7 +1,3 @@
-from app.person.personClass import Person
-from app.amity.amityClass import rooms
-
-
 class Room(object):
     """Holds all the functions that display rooms data."""
 
@@ -100,9 +96,5 @@ class Room(object):
             data += "\n"
             data += "NONE"
 
-        if args["-o"]:
-            with open(args["<filename>"], "wt") as output_file:
-                output_file.write(data)
-                print ("Unallocated people have been saved to {}".format(
-                    args["<filename>"]))
-        return data
+    def __init__(self):
+        self.room_name = None

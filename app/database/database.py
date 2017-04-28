@@ -2,7 +2,6 @@ import os
 from app.database.models import *
 from app.amity import my_amity
 from app.amity.amityClass import rooms
-from app.person.personClass import Person
 from app.rooms import my_rooms
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -75,7 +74,7 @@ class Database(object):
         Loads data from the people_data dict into the database
         """
         try:
-            for key, values in Person.people_data.items():
+            for key, values in my_amity.people_data.items():
                 person_id = key
                 name = values["name"]
                 wants_accommodation = values["accommodation"]
@@ -158,7 +157,7 @@ class Database(object):
         """
         message = ""
         for person in people_from_db:
-            Person.people_data.update({
+            my_amity.people_data.update({
                 person.person_id:
                 {'name': str(person.name),
                  'accommodation': str(person.wants_accommodation),
@@ -195,6 +194,7 @@ class Database(object):
                 return message
             room['occupants'].append(allocation.occupant_id)
             name = my_rooms.get_names(allocation.occupant_id)
+
 
             message += "{} successfully added to room {}\n".format(
                 name.upper(), str(allocation.room_name))

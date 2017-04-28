@@ -25,8 +25,6 @@ import sys
 import cmd
 from docopt import docopt, DocoptExit
 from app.amity.amityClass import Amity
-from app.person.personClass import Person
-from app.rooms.roomClass import Room
 from app.database import amity_db
 from termcolor import cprint
 from pyfiglet import figlet_format
@@ -66,7 +64,8 @@ def docopt_cmd(func):
 
 class MyInteractive (cmd.Cmd):
     cprint("\n")
-    cprint(figlet_format("AMITY".center(15), font="nancyj-underlined"), "yellow", attrs=["bold"])
+    cprint(figlet_format("AMITY".center(15), font="nancyj-underlined"),
+           "yellow", attrs=["bold"])
 
     def introduction():
         cprint("\n")
@@ -109,13 +108,13 @@ class MyInteractive (cmd.Cmd):
     def do_add_person(self, args):
         """Usage:
         add_person <first_name> <last_name> (Fellow|Staff) [<wants_accommodation>]"""
-        print(Person().add_person(args))
+        print(Amity().add_person(args))
 
     @docopt_cmd
     def do_remove_person(self, args):
         """Usage:
         remove_person <person_name>"""
-        print(Person().remove_person(args))
+        print(Amity().remove_person(args))
 
     @docopt_cmd
     def do_reallocate_person(self, args):
@@ -129,14 +128,14 @@ class MyInteractive (cmd.Cmd):
         """Usage:
         load_people <filename>
         """
-        print(Person().load_people(args))
+        print(Amity().load_people(args))
 
     @docopt_cmd
     def do_print_allocations(self, args):
         """Usage:
         print_allocations [-o <filename>]
         """
-        print(Room().print_allocations(args))
+        print(Amity().print_allocations(args))
 
     @docopt_cmd
     def do_print_unallocated(self, args):
@@ -150,7 +149,7 @@ class MyInteractive (cmd.Cmd):
         """Usage:
         print_room <room_name>
         """
-        print(Room().print_room(args))
+        print(Amity().print_room(args))
 
     @docopt_cmd
     def do_save_state(self, args):
