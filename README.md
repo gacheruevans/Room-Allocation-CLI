@@ -3,7 +3,7 @@
 
 # AMITY
 
-##Installation
+## Installation
 
 1. Create a working directory.
 
