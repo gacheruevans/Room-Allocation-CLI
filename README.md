@@ -2,8 +2,9 @@
 [![Code Health](https://landscape.io/github/andela-gacheruevans/cp1-amity/develop/landscape.svg?style=flat)](https://landscape.io/github/andela-gacheruevans/cp1-amity/develop)
 
 # AMITY
+## A room allocation system for one of Andela’s facilities.
 
-## Installation
+## Installation Setup
 
 1. Create a working directory.
 
@@ -38,7 +39,7 @@ when selecting the virtual environment, you can pick any name that suits you for
 	
 		python run.py -i
 
-## A room allocation system for one of Andela’s facilities. The following are the tasks needed to be accomplished;
+## The following are the tasks that were needed to be accomplished;
     
     1. create_room <room_name>... 
         - Creates rooms in Amity. Using this command I should be able to create as many rooms as possible by 
